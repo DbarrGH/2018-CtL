@@ -16,6 +16,10 @@ template: warning
 content: |
   Do not rely on this information. This is a class project,
   and it is likely incomplete. It is not legal advice.
+--
+template: small_firms_only
+content: |
+  This interview is designed to assist solo practice and small firms. It is not recommended for larger practices.
 ---
 sections:
   - Introduction
@@ -42,6 +46,7 @@ mandatory: True
 question: |
   ##Attorney Data Practices Evaluation
     ${warning}
+    ${small_firms_only}
 
     To get started, press **Start**
 subquestion: |
@@ -54,25 +59,24 @@ question: |
 field: intro_to_about_you
 section: Introduction
 ---
-mandatory: true
-Section: Introduction
 question: |
-What size legal practice do you have?
-Include administrative staff, paralegals, and clerks.
-subquestion: |
-field: practice_size
-datatype: checkboxes
+  What size legal practice do you have?
+field: legal_practice
 choices:
-  - Solo Practice (1 Attorney)
-  - Small Firm (2 - 10 attorneys)
-  - More than 10 attorneys.
-  - I don't have a legal practice.
+  - Solo Practices
+  - Small Practice (2-5 Attorneys)
+  - Medium Practice (10-20 Attorneys)
+  - I do not have a legal practice.
+---
+question: result of question
+subquestion: |
+  target_variable is: ${legal_practice}
 ---
 mandatory: true
 question: |
   Please tell me what you think.
 fields:
-  - "How do you send and recieve electronic files?</b> You may select more than one option.": uses_what
+  - "How do you send and recieve electronic files? You may select more than one option.": uses_what
     datatype: checkboxes
     choices:
       - Email: email
