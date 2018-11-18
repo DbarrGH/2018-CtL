@@ -58,10 +58,11 @@ mandatory: true
 Section: Introduction
 question: |
 What size legal practice do you have?
+Include administrative staff, paralegals, and clerks.
 subquestion: |
 field: practice_size
 choices:
-  - Solo Practice
+  - Solo Practice (1 Attorney)
   - Small Firm (2 - 10 attorneys)
   - More than 10 attorneys.
   - I don't have a legal practice.
@@ -70,12 +71,13 @@ mandatory: true
 question: |
   Please tell me what you think.
 fields:
-  - "Select the fruits you like": uses_what
+  - "How do you send and recieve electronic files?</b> You may select more than one option.": uses_what
     datatype: checkboxes
     choices:
       - Email: email
       - File_Sharing_or_Cloud: File Sharing or Clound Service
       - Facsimile: Facsimile
+      - Physical_Mail: Physical Mail
 ---
 question: |
   Electronic Files
@@ -84,21 +86,14 @@ subquestion: |
   You use Email.
   % endif
   % if uses_what['File_Sharing_or_Cloud']:
-  You like peaches.
+  You use File Sharing or a Cloud Service.
   % endif
-  % if uses_what['FacsimileEW']:
-  You like pears.
+  % if uses_what['Facsimile']:
+  You use faxes.
   % endif
----
-mandatory: True
-question: |
-  What kind of belly button
-  do you have?
-subquestion: |
-field: belly_button
-choices:
-  - Innie
-  - Outie
+  % if uses_what[Physical_Mail]
+  You use Physical Mail.
+  % endif
 ---
 mandatory: True
 question: |
