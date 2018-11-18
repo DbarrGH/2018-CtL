@@ -61,6 +61,7 @@ What size legal practice do you have?
 Include administrative staff, paralegals, and clerks.
 subquestion: |
 field: practice_size
+datatype: checkboxes
 choices:
   - Solo Practice (1 Attorney)
   - Small Firm (2 - 10 attorneys)
