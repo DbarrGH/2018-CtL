@@ -75,8 +75,7 @@ subquestion: |
 mandatory: true
 question: |
   Please tell me what you think.
-fields:
-  - "How do you send and recieve electronic files? You may select more than one option.": uses_what
+fields: "How do you send and recieve electronic files? You may select more than one option": uses_tool
     datatype: checkboxes
     choices:
       - Email: email
@@ -87,16 +86,16 @@ fields:
 question: |
   Electronic Files
 subquestion: |
-  % if uses_what['Email']:
+  % if uses_tool['Email']:
   You use Email.
   % endif
-  % if uses_what['File_Sharing_or_Cloud']:
+  % if uses_tool['File_Sharing_or_Cloud']:
   You use File Sharing or a Cloud Service.
   % endif
-  % if uses_what['Facsimile']:
+  % if uses_tool['Facsimile']:
   You use faxes.
   % endif
-  % if uses_what[Physical_Mail]
+  % if uses_tool[Physical_Mail]
   You use Physical Mail.
   % endif
 ---
