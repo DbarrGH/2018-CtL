@@ -14,7 +14,7 @@ terms:
 ---
 template: warning
 content: |
-  Do not rely on this information. This is a class project,
+  ### Do not rely on this information. This is a class project,
   and it is likely incomplete. It is not legal advice.
 ---
 sections:
@@ -87,12 +87,14 @@ subquestion: |
   You like email.
   % endif
   % if file_methods['Cloud_Fileshare']:
-  You like peaches.
+  You use ad here.
   % endif
   % if file_methods['Facsimile']:
-  You like pears.
+  You use facsimile.
   % endif
-  % if file_methods['Mail']
+  % if file_methods['Mail']:
+  You use mail.
+  %endif
 ---
 code: |
   variable_as_code = str(file_methods.elements)
