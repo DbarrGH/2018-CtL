@@ -1,0 +1,181 @@
+metadata:
+  title: |
+    data practices mockup 2
+  short title: |
+    mockup2
+  author: |
+    Dylan C. Barrett
+---
+terms:
+  Cloud Storage: |
+    A service that allows the user to save data online,
+    and access the data from multiplw devices. Examples include:
+    Google Drive, Microsoft OneDrive, etc.
+---
+template: warning
+content: |
+  Do not rely on this information. This is a class project,
+  and it is likely incomplete. It is not legal advice.
+---
+sections:
+  - Introduction
+  - Current Solutions
+---
+features:
+  navigation: True
+  progress bar: True
+---
+modules:
+  docassemble.base.util
+---
+mandatory: True
+code: |
+  menu_items = [ action_menu_item('Roadmap', 'road_map') ]
+---
+initial: True
+code: |
+  if returning_user(minutes=0.5):
+    welcome_back
+---
+field: intro_screen
+mandatory: True
+question: |
+  ##Attorney Data Practices Evaluation
+    ${warning}
+
+    To get started, press **Start**
+subquestion: |
+field: sees_nav_bar
+---
+mandatory: True
+question: |
+  I am going to ask you some
+  questions about yourself.
+field: intro_to_about_you
+section: Introduction
+---
+objects:
+  - recipient: Individual
+---
+mandatory: true
+question: |
+  What is your e-mail address?
+fields:
+  - E-mail: recipient.email
+    datatype: email
+---
+mandatory: true
+question: |
+  What size legal practice do you have?
+field: legal_practice
+choices:
+  - Solo Practice
+  - Small Practice (2-5 Attorneys)
+  - Medium Practice (10-20 Attorneys)
+  - I do not have a legal practice.
+---
+question: result of question
+subquestion: |
+  target_variable is: ${legal_practice}
+---
+mandatory: true
+question: |
+  What methods do you use to send and recieve electronic files?
+fields:
+  - "Select all that apply:": file_methods
+    datatype: checkboxes
+    choices:
+      - Email: Email
+      - Cloud storage or filesharing service: cloud_filesharing
+      - Facsimile: Facsimile
+      - Physical Mail: physical_mail
+---
+question: |
+  Results of electronic files question.
+subquestion: |
+  % if file_methods['Email']:
+  You like email.
+  % endif
+  % if file_methods['cloud_filesharing']:
+  You use ad here.
+  % endif
+  % if file_methods['Facsimile']:
+  You use facsimile.
+  % endif
+  % if file_methods['physical_mail']:
+  You use mail.
+  %endif
+---
+code: |
+  variable_as_code = str(file_methods.elements)
+---
+mandatory: True
+question: |
+  How do you store or keep electronic files?
+fields:
+  - "Select any of the following methods you use to store or keep files:": storage_methods
+    datatype: checkboxes
+    choices:
+      - Locally on my computer: Locally
+      - On a cloud storage service: Cloud
+      - Case managment software, and I keep all files there: Case_management
+      - Physical copies are the final copy: Physical_Copy
+---
+question: |
+  Results of electronic storage of files question.
+subquestion: |
+  % if storage_methods['Locally']:
+  You keep electronic files locally.
+  % endif
+  % if storage_methods['Cloud']:
+  You keep electronic files in the cloud.
+  % endif
+  % if storage_methods['Case_management']:
+  You use a case managment software.
+  % endif
+  % if storage_methods['Physical_Copy']:
+  You keep physical copies.
+  % endif
+---
+code: |
+  variable_as_code = str(storage_methods.elements)
+---
+event: welcome_back
+question: |
+  Welcome back!
+subquestion: |
+  You are currently in the
+  **${ nav.get_section(display=True) }**
+  section.
+
+  ${ nav }
+
+  Press "Continue" to pick up
+  where you left off.
+buttons:
+  Continue: continue
+---
+event: road_map
+question: |
+  Roadmap
+subquestion: |
+  You are currently in the
+  **${ nav.get_section(display=True) }**
+  section.
+
+  ${ nav }
+
+  Press "Continue" to resume the
+  interview.
+buttons:
+  Continue: continue
+---
+progress: 100
+mandatory: True
+Section: All Done
+question: |
+  Congratulations, you found Nemo!
+buttons:
+  - Try again: restart
+  - Close Window: exit
+---
