@@ -85,24 +85,24 @@ fields:
   - "Select all that apply:": file_methods
     datatype: checkboxes
     choices:
-      - Email: email
-      - Cloud_Fileshare: cloud storage or filesharing service
+      - Email: Email
+      - Cloud storage or filesharing service: cloud_filesharing
       - Facsimile: Facsimile
-      - Mail: physical mail
+      - Physical Mail: physical_mail
 ---
 question: |
-  Thank you for your thoughts.
+  Results of electronic files question.
 subquestion: |
-  % if file_methods['email']:
+  % if file_methods['Email']:
   You like email.
   % endif
-  % if file_methods['Cloud_Fileshare']:
+  % if file_methods['cloud_filesharing']:
   You use ad here.
   % endif
   % if file_methods['Facsimile']:
   You use facsimile.
   % endif
-  % if file_methods['Mail']:
+  % if file_methods['physical_mail']:
   You use mail.
   %endif
 ---
@@ -111,9 +111,34 @@ code: |
 ---
 mandatory: True
 question: |
-  What is your favorite vegetable?
+  How do you store or keep electronic files?
 fields:
-  - Favorite vegetable: favorite_vegetable
+  - "Select any of the following methods you use to store or keep files:": storage_methods
+    datatype: checkboxes
+    choices:
+      - Locally on my computer: Locally
+      - On a cloud storage service: Cloud
+      - Case managment software, and I keep all files there: Case_management
+      - Physical copies are the final copy: Physical_Copy
+---
+question: |
+  Results of electronic storage of files question.
+subquestion: |
+  % if storage_methods['Locally']:
+  You keep electronic files locally.
+  % endif
+  % if storage_methods['Cloud']:
+  You keep electronic files in the cloud.
+  % endif
+  % if storage_methods['Case_management']:
+  You use a case managment software.
+  % endif
+  % if storage_methods['Physical_Copy']:
+  You keep physical copies.
+  % endif
+---
+code: |
+  variable_as_code = str(storage_methods.elements)
 ---
 event: welcome_back
 question: |
