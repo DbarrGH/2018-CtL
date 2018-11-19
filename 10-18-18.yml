@@ -16,10 +16,6 @@ template: warning
 content: |
   Do not rely on this information. This is a class project,
   and it is likely incomplete. It is not legal advice.
---
-template: small_firms_only
-content: |
-  This interview is designed to assist solo practice and small firms. It is not recommended for larger practices.
 ---
 sections:
   - Introduction
@@ -46,7 +42,6 @@ mandatory: True
 question: |
   ##Attorney Data Practices Evaluation
     ${warning}
-    ${small_firms_only}
 
     To get started, press **Start**
 subquestion: |
@@ -95,7 +90,7 @@ subquestion: |
   % if uses_tool['Facsimile']:
   You use faxes.
   % endif
-  % if uses_tool[Physical_Mail]
+  % if uses_tool['Physical_Mail']
   You use Physical Mail.
   % endif
 ---
