@@ -19,7 +19,8 @@ content: |
 ---
 sections:
   - Introduction
-  - Current Solutions
+  - About You
+  - Current Practices and Solutions
 ---
 features:
   navigation: True
@@ -46,18 +47,13 @@ question: |
     To get started, press **Start**
 subquestion: |
 field: sees_nav_bar
----
-mandatory: True
-question: |
-  I am going to ask you some
-  questions about yourself.
-field: intro_to_about_you
 section: Introduction
 ---
 objects:
   - recipient: Individual
 ---
 mandatory: true
+section: About You
 question: |
   What is your e-mail address?
 fields:
@@ -65,6 +61,7 @@ fields:
     datatype: email
 ---
 mandatory: true
+section: About You
 question: |
   What size legal practice do you have?
 field: legal_practice
@@ -74,7 +71,8 @@ choices:
   - Medium Practice (10-20 Attorneys)
   - I do not have a legal practice.
 ---
-question: result of question
+question: |
+  result of question
 subquestion: |
   target_variable is: ${legal_practice}
 ---
@@ -139,6 +137,119 @@ subquestion: |
 ---
 code: |
   variable_as_code = str(storage_methods.elements)
+---
+mandatory: True
+question: |
+  How do you store or keep electronic files?
+fields:
+  - "Select any of the following methods you use to store or keep physical files:": physical_methods
+    datatype: checkboxes
+    choices:
+      - Banking Boxes: bankers
+      - Filing Cabinets: filing
+      - In stacks of paper: stacks
+      - I destroy physical copies and retain electronic copies: destroy
+---
+question: |
+  Results of physical storage of files question.
+subquestion: |
+  % if physical_methods['bankers']:
+  You keep electronic files locally.
+  % endif
+  % if physical_methods['filing']:
+  You keep electronic files in the cloud.
+  % endif
+  % if physical_methods['stacks']:
+  You use a case managment software.
+  % endif
+  % if physical_methods['destroy']:
+  You keep physical copies.
+  % endif
+---
+code: |
+  variable_as_code = str(physical_methods.elements)
+---
+mandatory: True
+question: |
+  How do you store your passwords for online services, website, email, etc?
+fields:
+  - "I store my passwords by...": password_storage
+    datatype: checkboxes
+    choices:
+      - writing them down: writing_down
+      - on an electronic document or spreadsheet: spreadsheet
+      - storing them in a password manager: password_manager
+      - saving passwords when my web-browser asks: browser
+      - I do not keep track of my passwords: no_track
+---
+question: |
+  Results of password storage of files question.
+subquestion: |
+  % if password_storage['writing_down']:
+  You keep electronic files locally.
+  % endif
+  % if password_storage['spreadsheet']:
+  You keep electronic files in the cloud.
+  % endif
+  % if password_storage['password_manager']:
+  You use a case managment software.
+  % endif
+  % if password_storage['browser']:
+  You keep physical copies.
+  % endif
+  % if password_storage['no_track']:
+  You do not keep track.
+  % endif
+---
+code: |
+  variable_as_code = str(password_storage.elements)
+---
+mandatory: true
+question: |
+  Do you work in a shared office space or is your office located in a shared office building?
+field: shared_office
+buttons:
+  - "Yes": True
+  - "No": False
+---
+question: Result of question
+subquestion: |
+  % if shared_office:
+  Go to internet provider questions.
+  % else:
+  Do not go to internet provider questions.
+  % endif
+---
+mandatory: True
+question: |
+  How do you recieve internet access at your place of work?
+fields:
+  - "Internet access is provided by:": internet_access
+    datatype: checkboxes
+    choices:
+      - The building management provides internet access: building_management
+      - I/we pay for business or commercial internet on our own: business_internet
+      - I/we use a standard (non-business) wi-fi network: standard_network
+      - Not sure: internet_access_not_sure
+---
+question: |
+  Results of password storage of files question.
+subquestion: |
+  % if internet_access['building_management']:
+  You keep electronic files locally.
+  % endif
+  % if internet_access['business_internet']:
+  You keep electronic files in the cloud.
+  % endif
+  % if internet_access['standard_network']:
+  You use a case managment software.
+  % endif
+  % if internet_access['internet_access_not_sure']:
+  You keep physical copies.
+  % endif
+---
+code: |
+  variable_as_code = str(internet_access.elements)
 ---
 event: welcome_back
 question: |
