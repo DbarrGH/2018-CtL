@@ -1,16 +1,23 @@
 metadata:
   title: |
-    data practices mockup 2
+    Law Practice Efficiency and Data Security Assesment
   short title: |
-    mockup2
-  author: |
-    Dylan C. Barrett
+    Efficiency and Security
+  description:  |
+    This interview is for a Suffolk Law final project in the course Coding the Law
+  author:
+    - name: Dylan C. Barrett
+    - organization: Suffolk University Law School, Fall 2018  "http://www.codingthelaw.org/"
 ---
 terms:
   Cloud Storage: |
     A service that allows the user to save data online,
     and access the data from multiplw devices. Examples include:
     Google Drive, Microsoft OneDrive, etc.
+  Personal Email: |
+    Define personal email.
+  Business Email: |
+    Define business email.
 ---
 template: warning
 content: |
@@ -20,7 +27,8 @@ content: |
 sections:
   - Introduction
   - About You
-  - Current Practices and Solutions
+  - Preliminary Information
+  - Learning More
 ---
 features:
   navigation: True
@@ -77,30 +85,31 @@ subquestion: |
   target_variable is: ${legal_practice}
 ---
 mandatory: true
+section: Preliminary Information
 question: |
   What methods do you use to send and recieve electronic files?
 fields:
-  - "Select all that apply:": file_methods
+  - "Select all electronic file transmission methods that apply:": attorney_efile_methods
     datatype: checkboxes
     choices:
-      - Email: Email
-      - Cloud storage or filesharing service: cloud_filesharing
-      - Facsimile: Facsimile
-      - Physical Mail: physical_mail
+      - Email: attorney_efile_methods_email
+      - Cloud storage or filesharing service: attorney_efile_methods_cloud_filesharing
+      - Facsimile: attorney_efile_methods_facsimile
+      - Physical Mail: attorney_efile_methods_physical_mail
 ---
 question: |
-  Results of electronic files question.
+  Results of attorney_efile_methods files question.
 subquestion: |
-  % if file_methods['Email']:
+  % if file_methods['attorney_efile_methods_email']:
   You like email.
   % endif
-  % if file_methods['cloud_filesharing']:
+  % if attorney_efile_methods['attorney_efile_methods_cloud_filesharing']:
   You use ad here.
   % endif
-  % if file_methods['Facsimile']:
+  % if attorney_efile_methods['attorney_efile_methods_facsimile']:
   You use facsimile.
   % endif
-  % if file_methods['physical_mail']:
+  % if attorney_efile_methods['attorney_efile_methods_physical_mail']:
   You use mail.
   %endif
 ---
@@ -108,6 +117,7 @@ code: |
   variable_as_code = str(file_methods.elements)
 ---
 mandatory: True
+section: Preliminary Information
 question: |
   How do you store or keep electronic files?
 fields:
@@ -139,6 +149,7 @@ code: |
   variable_as_code = str(storage_methods.elements)
 ---
 mandatory: True
+section: Preliminary Information
 question: |
   How do you store or keep electronic files?
 fields:
@@ -170,6 +181,7 @@ code: |
   variable_as_code = str(physical_methods.elements)
 ---
 mandatory: True
+section: Preliminary Information
 question: |
   How do you store your passwords for online services, website, email, etc?
 fields:
@@ -205,6 +217,7 @@ code: |
   variable_as_code = str(password_storage.elements)
 ---
 mandatory: true
+section: Preliminary Information
 question: |
   Do you work in a shared office space or is your office located in a shared office building?
 field: shared_office
@@ -221,6 +234,7 @@ subquestion: |
   % endif
 ---
 mandatory: True
+section: Preliminary Information
 question: |
   How do you recieve internet access at your place of work?
 fields:
@@ -251,7 +265,154 @@ subquestion: |
 code: |
   variable_as_code = str(internet_access.elements)
 ---
+mandatory: True
+section: Learning More
+question: |
+  What email service do you use?
+fields:
+  - "The email service I use...": email_service_used
+    datatype: checkboxes
+    choices:
+      - Gmail: gmail
+      - Microsoft Outlook: microsoft_outlook
+      - Yahoo Email: yahoo_email
+      - Mail.com: mail_dot_com
+      - Other: other_email
+---
+question: |
+  Results of what email service question.
+subquestion: |
+  % if email_service_used['microsoft_outlook']:
+  You keep electronic files locally.
+  % endif
+  % if email_service_used['yahoo_email']:
+  You keep electronic files in the cloud.
+  % endif
+  % if email_service_used['mail_dot_com']:
+  You use a case managment software.
+  % endif
+  % if email_service_used['other_email']:
+  You keep physical copies.
+  % endif
+---
+code: |
+  variable_as_code = str(email_service_used.elements)
+---
+mandatory: True
+section: Learning More
+question: |
+  Do you know what security and encryption methods your email provider uses?
+field: email_security
+buttons:
+  - "Yes": true
+  - "No": False
+---
+question: result of email and encryption method yes or no
+subquestion: |
+  % if email_security:
+  Not sure yet
+  % else:
+  Not sure yet
+  % endif
+---
+mandatory: True
+section: Preliminary Information
+question: |
+  How do you collaborate on the same document with co-workers?
+fields:
+  - "I work on the same documents by:": collaborate_documents
+    datatype: checkboxes
+    choices:
+      - Send the same Back-and-Forth: send_same
+      - Cloud Storage: cloud_storage_collaborate
+      - Screen Sharing Tool: screen_sharing
+      - Other: other_collaborate
+---
+question: |
+  Results of collaboration question
+subquestion: |
+    % if collaborate_documents['send_same']:
+    You keep electronic files locally.
+    % endif
+    % if collaborate_documents['cloud_storage_collaborate']:
+    You keep electronic files in the cloud.
+    % endif
+    % if collaborate_documents['screen_sharing']:
+    You use a case managment software.
+    % endif
+    % if collaborate_documents['other_collaborate']:
+    You keep physical copies.
+    % endif
+---
+code: |
+  variable_as_code = str(collaborate_documents.elements)
+---
+mandatory: True
+section: Learning More
+question: |
+  Review or work on a document with a client?
+fields:
+  - "To work on a document with a client": client_collaborate
+    datatype: checkboxes
+    choices:
+      - Email them the Document: client_collaborate_email
+      - Mail them the Document: client_collaborate_mail
+      - Screen Share or Document Share Software: client_collaborate_share
+      - Other: client_collaborate_other
+---
+question: |
+  Results of client collab question.
+subquestion: |
+  % if client_collaborate['client_collaborate_email']:
+  You keep electronic files locally.
+  % endif
+  % if client_collaborate['client_collaborate_mail']:
+  You keep electronic files in the cloud.
+  % endif
+  % if client_collaborate['client_collaborate_share']:
+  You use a case managment software.
+  % endif
+  % if client_collaborate['client_collaborate_other']:
+  You keep physical copies.
+  % endif
+---
+code: |
+  variable_as_code = str(client_collaborate.elements)
+---
+mandatory: True
+section: Learning More
+question: |
+  How do you obtain a client's signature on documents?
+fields:
+  - "To work on a document with a client": client_signature
+    datatype: checkboxes
+    choices:
+      - Mail them the Document: client_signature_mail
+      - E-Mail them the Document: client_signature_email
+      - Screen Share or Document Share Software: client_signature_eSignature
+      - Other: client_signature_other
+---
+question: |
+  Results of client collab question.
+subquestion: |
+  % if client_signature['client_signature_email']:
+  You keep electronic files locally.
+  % endif
+  % if client_signature['client_signature_mail']:
+  You keep electronic files in the cloud.
+  % endif
+  % if client_signature['client_signature_eSignature']:
+  You use a case managment software.
+  % endif
+  % if client_signature['client_signature_other']:
+  You keep physical copies.
+  % endif
+---
+code: |
+  variable_as_code = str(client_signature.elements)
+---
 event: welcome_back
+section: Preliminary Information
 question: |
   Welcome back!
 subquestion: |
